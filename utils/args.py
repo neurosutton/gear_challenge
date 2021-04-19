@@ -128,9 +128,9 @@ def _BuildCommandList(command=['fslstats'], context):
     return command
 
 def _reportOut(context, result):
-    out_dir = op.dirname(context.custom_dict["input_image"])
+    env = context.custom_dict["environ"]
     if op.isdir(out_dir):
-        result.stdout >> op.join(out_dir,'fslstats.txt')
+        result.stdout >> op.join(env, 'output','fslstats.txt')
     else:
         print(result.stdout)  # Report out the requested stats.
 
