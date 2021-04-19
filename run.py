@@ -7,14 +7,14 @@ import re
 import subprocess as sp
 import flywheel
 
-from utils import args, results, log
+from utils import args, log
 
 if __name__ == "__main__":
     context = flywheel.GearContext()
     context.log = log.get_custom_logger("[flywheel:fsl-stats]")
 
     # grab environment for gear
-    with open(/tmp/gear_environ.json, "r") as f:
+    with open('/tmp/gear_environ.json', "r") as f:
         environ = json.load(f)
     context.custom_dict ={}
     context.custom_dict["environ"] = environ

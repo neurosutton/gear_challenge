@@ -52,20 +52,22 @@ def validate(context):
     keys = params.keys()
 
     if not keys:
-        raise Exception (f'fslstats requires at least one option is chosen.')
+        print(dir(context))
+        raise Exception ('fslstats requires at least one option is chosen.')
+
         os.sys.exit()
 
 
 def _setStats(context, key):
     """
     Users select stats to run from config field in manifest.json. All string options
-    are handled by the "additional_stats" field. Other types (with input values) are
+    are handled by the "function_options" field. Other types (with input values) are
     handled by this method.
 
     Parameters
     ----------
     key : str
-        Statistic requested, which is not handled by the "additional_stats" field
+        Statistic requested, which is not handled by the "function_options" field
 
     Returns
     -------
@@ -83,7 +85,7 @@ def _setStats(context, key):
     return [custom_tag_dict[key], str(context.custom_dict["params"][key])]
 
 
-def _BuildCommandList(command=['fslstats'], context):
+def _BuildCommandList(context, command=['fslstats']):
     """
     Create the command string to pass to subprocess.
 
@@ -99,12 +101,12 @@ def _BuildCommandList(command=['fslstats'], context):
     """
     # Add an option of splitting a timeseries
     # Per fslstats usage, this tag comes before other image optionsin the command
-    if "-t" in context.custom_dict["params"]["additional_stats"]:
+    if "-t" in context.custom_dict["params"]["function_options"]:
         command.append("-t")
         # Remove '-t' from the remaining parsable options
-        context.custom_dict["params"]["additional_stats"] = context.custom_dict[
+        context.custom_dict["params"]["function_options"] = context.custom_dict[
             "params"
-        ]["additional_stats"].replace("-t", "")
+        ]["function_options"].replace("-t", "")
 
     # Add main image
     command.append(context.custom_dict["input_image"])
@@ -116,7 +118,7 @@ def _BuildCommandList(command=['fslstats'], context):
         command.extend(["-d", context.custom_dict["difference_image"]])
     if context.custom_dict["params"].keys():
         for key in context.custom_dict["params"].keys():
-            if key == "additional_stats":
+            if key == "function_options":
                 # Since this is a string of options, strip all the
                 # non-alphabet characters and create an argument-by-
                 # argument list. (fslstats compliant format)
@@ -136,7 +138,7 @@ def _reportOut(context, result):
 
 def execute(context, dry_run=False):
     command = _BuildCommandList()
-    context.log.info(f"FSL Stats command: {' '.join(command)}")
+    context.log.info("FSL Stats command: {}".format(' '.join(command)))
     if not dry_run:
         result = sp.run(
             command,

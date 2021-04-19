@@ -68,7 +68,7 @@
             "enum": ["text"],
             "id": "-H"
         },
-        "additional_stats": {
+        "function_options": {
             "description": "Choose any combination of statistical output. Valid options include\n[-r, -R, -e, -E, -v, -m, -M, -s, -S, -w, -x , -X, -c , -C, -a, -n]\n-r           : output <robust min intensity> <robust max intensity>\n-R           : output <min intensity> <max intensity>\n-e           : output mean entropy ; mean(-i*ln(i))\n-E           : output mean entropy (of nonzero voxels)\n-v           : output <voxels> <volume>\n-V           : output <voxels> <volume> (for nonzero voxels)\n-m           : output mean\n-M           : output mean (for nonzero voxels)\n-s           : output standard deviation\n-S           : output standard deviation (for nonzero voxels)\n-w           : output smallest ROI <xmin> <xsize> <ymin> <ysize> <zmin> <zsize> <tmin> <tsize>\n containing nonzero voxels\n-x           : output co-ordinates of maximum voxel\n-X           : output co-ordinates of minimum voxel\n-c           : output centre-of-gravity (cog) in mm coordinates\n-C           : output centre-of-gravity (cog) in voxel coordinates\n-a           : use absolute values of all image intensities\n-n           : treat NaN or Inf as zero for subsequent stats",
             "optional": true,
             "default": "",
