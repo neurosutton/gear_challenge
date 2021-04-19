@@ -2,7 +2,7 @@
     "name": "fsl-stats",
     "label": "fsl-stats",
     "description": "This gear returns statistical output for a given NIFTI image.",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "author": "Analysis Group, FMRIB, Oxford, UK",
     "maintainer": "Brianne Sutton",
     "cite": "",
