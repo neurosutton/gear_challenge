@@ -1,5 +1,5 @@
 import re
-import os
+import os, os.path as op
 import subprocess as sp
 
 
@@ -129,15 +129,16 @@ def _BuildCommandList(context, command=['fslstats']):
                 command.extend(_setStats(context, key))
     return command
 
-def _reportOut(context, result):
-    env = context.custom_dict["environ"]
-    if op.isdir(out_dir):
-        result.stdout >> op.join(env, 'output','fslstats.txt')
+def _reportOut(context, command, result):
+    env = context.custom_dict["environ"]['FLYWHEEL']
+    if op.isdir(op.join(env, 'output')):
+        with open(op.join(env, 'output','fslstats.txt'),'w+') as f:
+            f.write('{}\n{}'.format(' '.join(command), result.stdout))
     else:
         print(result.stdout)  # Report out the requested stats.
 
 def execute(context, dry_run=False):
-    command = _BuildCommandList()
+    command = _BuildCommandList(context)
     context.log.info("FSL Stats command: {}".format(' '.join(command)))
     if not dry_run:
         result = sp.run(
@@ -148,10 +149,10 @@ def execute(context, dry_run=False):
             env=context.custom_dict["environ"],
         )
         context.log.info(result.returncode)
-        context.log.infor(result.stdout)
+        context.log.info(result.stdout)
 
         if result.returncode == 0:
-            _reportOut(context, result)
+            _reportOut(context, command, result)
         else:
             context.log.error("The command:\n " + " ".join(command) + "\nfailed.")
             # Give some indication of why the calculation failed.

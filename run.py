@@ -21,10 +21,8 @@ if __name__ == "__main__":
 
     try:
         args.handleMultiImgs(context)
-        # Validate next, b/c parsing params is useless if no options were specified
-        args.validate(context)
         args.parseParams(context)
-
+        args.validate(context)
         args.execute(context)
 
         context.log.info("Commands successfully executed!")
