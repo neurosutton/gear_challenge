@@ -44,7 +44,7 @@ def parse_params(context):
 
 def validate(context):
     """
-    Throw errors for setting violations.
+    Raises: Throw errors for setting violations.
     """
 
     log = context.log
@@ -95,12 +95,8 @@ def _build_command_list(context, command=['fslstats']):
     """
     # Add an option of splitting a timeseries
     # Per fslstats usage, this tag comes before other image optionsin the command
-    if "-t" in context.custom_dict["params"]["function_options"]:
+    if "t" in context.custom_dict["params"].keys():
         command.append("-t")
-        # Remove '-t' from the remaining parsable options
-        context.custom_dict["params"]["function_options"] = context.custom_dict[
-            "params"
-        ]["function_options"].replace("-t", "")
 
     # Add main image
     command.append(context.custom_dict["input_image"])
@@ -111,16 +107,11 @@ def _build_command_list(context, command=['fslstats']):
     if "difference_image" in context.custom_dict:
         command.extend(["-d", context.custom_dict["difference_image"]])
     if context.custom_dict["params"].keys():
-        for key in context.custom_dict["params"].keys():
-            if key == "function_options":
-                # Since this is a string of options, strip all the
-                # non-alphabet characters and create an argument-by-
-                # argument list. (fslstats compliant format)
-                options = list(re.sub(r"\W+", "", context.custom_dict["params"][key]))
-                for o in options:
-                    command.append("-" + str(o))
+        for k,v in context.custom_dict["params"].items():
+            if v==True:
+                command.extend(['-'+k])
             else:
-                command.extend(_set_stats(context, key))
+                command.extend(_set_stats(context, k))
     return command
 
 def _report_out(context, command, result):
