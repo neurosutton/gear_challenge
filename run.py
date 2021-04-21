@@ -20,8 +20,8 @@ if __name__ == "__main__":
     context.custom_dict["environ"] = environ
 
     try:
-        args.handleMultiImgs(context)
-        args.parseParams(context)
+        args.handle_multiple_imgs(context)
+        args.parse_params(context)
         args.validate(context)
         args.execute(context)
 
