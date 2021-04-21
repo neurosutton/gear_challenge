@@ -2,7 +2,7 @@
     "name": "fsl-stats",
     "label": "fsl-stats",
     "description": "This gear returns statistical output for a given NIFTI image.",
-    "version": "0.1.1",
+    "version": "0.2.0",
     "author": "Analysis Group, FMRIB, Oxford, UK",
     "maintainer": "Brianne Sutton",
     "cite": "",
@@ -13,7 +13,7 @@
     "custom": {
         "gear-builder": {
             "category": "analysis",
-            "image": "neurosutton/fsl-stats:0.1.1"
+            "image": "neurosutton/fsl-stats:0.2.0"
         },
         "flywheel": {"suite": "FSL"}
     },
