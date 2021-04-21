@@ -3,7 +3,7 @@ import os, os.path as op
 import subprocess as sp
 
 
-def handleMultiImgs(context):
+def handle_multiple_imgs(context):
     """
     fslstats allows multiple nii's to be submited as the (a) input image,
     (b) mask image, and (c) difference image. To accomodate multiple nii's,
@@ -25,7 +25,7 @@ def handleMultiImgs(context):
         ]["name"]
 
 
-def parseParams(context):
+def parse_params(context):
     """
     Parse the statistical arguments given to fslstats so the command can be built.
     """
@@ -58,21 +58,17 @@ def validate(context):
         os.sys.exit()
 
 
-def _setStats(context, key):
+def _set_stats(context, key):
     """
     Users select stats to run from config field in manifest.json. All string options
     are handled by the "function_options" field. Other types (with input values) are
     handled by this method.
 
-    Parameters
-    ----------
-    key : str
-        Statistic requested, which is not handled by the "function_options" field
+    Args:
+        key (str): Statistic requested, which is not handled by the "function_options" field
 
-    Returns
-    -------
-    list
-        values (option and value) to be appended to the fslstats command
+    Returns:
+        list of values (option and value) to be appended to the fslstats command
     """
 
     custom_tag_dict = {"upper_threshold": "-u",
@@ -85,19 +81,17 @@ def _setStats(context, key):
     return [custom_tag_dict[key], str(context.custom_dict["params"][key])]
 
 
-def _BuildCommandList(context, command=['fslstats']):
+def _build_command_list(context, command=['fslstats']):
     """
     Create the command string to pass to subprocess.
 
-    Parameters
-    ----------
-    command : list
-        By default, the command will start with fslstats and be built from other
-        parameters that have already been parsed (see parseParams and setStats)
+    Args:
+        command (list): By default, the command will start with fslstats and be
+        built from other parameters that have already been parsed (see parse_params
+        and setStats)
 
-    Returns
-    -------
-    formatted fslstats command
+    Returns:
+        formatted fslstats command
     """
     # Add an option of splitting a timeseries
     # Per fslstats usage, this tag comes before other image optionsin the command
@@ -126,10 +120,10 @@ def _BuildCommandList(context, command=['fslstats']):
                 for o in options:
                     command.append("-" + str(o))
             else:
-                command.extend(_setStats(context, key))
+                command.extend(_set_stats(context, key))
     return command
 
-def _reportOut(context, command, result):
+def _report_out(context, command, result):
     env = context.custom_dict["environ"]['FLYWHEEL']
     if op.isdir(op.join(env, 'output')):
         with open(op.join(env, 'output','fslstats.txt'),'w+') as f:
@@ -138,7 +132,7 @@ def _reportOut(context, command, result):
         print(result.stdout)  # Report out the requested stats.
 
 def execute(context, dry_run=False):
-    command = _BuildCommandList(context)
+    command = _build_command_list(context)
     context.log.info("FSL Stats command: {}".format(' '.join(command)))
     if not dry_run:
         result = sp.run(
@@ -152,7 +146,7 @@ def execute(context, dry_run=False):
         context.log.info(result.stdout)
 
         if result.returncode == 0:
-            _reportOut(context, command, result)
+            _report_out(context, command, result)
         else:
             context.log.error("The command:\n " + " ".join(command) + "\nfailed.")
             # Give some indication of why the calculation failed.
