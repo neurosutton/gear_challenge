@@ -19,73 +19,163 @@
     },
     "command": "python3 run.py",
     "config": {
-        "lower_threshold": {
+          "t":{
+            "id":"-t",
+            "description": "Complete stats for each volume",
+            "optional": true,
+            "type": "boolean"
+          },
+          "m": {
+              "id":"-m",
+              "description": "output mean",
+              "optional": true,
+              "type": "boolean"
+          },
+          "M": {
+                "id":"-M",
+                "description": "output mean (for nonzero voxels)",
+                "optional": true,
+                "type": "boolean"
+          },
+          "s":{
+                "id":"-s",
+                "description": "output standard deviation",
+                "optional": true,
+                "type": "boolean"
+          },
+          "S":{
+                "id":"-S",
+                "description": "output standard deviation (for nonzero voxels)",
+                "optional": true,
+                "type": "boolean"
+          },
+          "l": {
             "description": "set lower threshold",
             "optional": true,
             "type": "number",
-            "id": "-l"
-        },
-        "upper_threshold": {
-            "description": "set upper threshold",
-            "optional": true,
-            "type": "number",
-            "id": "-u"
-        },
-        "output_nth_percentile": {
-            "description": "output nth percentile (n between 0 and 100)",
-            "optional": true,
-            "type": "number",
-            "minimum": 0,
-            "maximum": 100,
-            "id": "-p"
-        },
-        "output_nth_percentile_nonzero": {
-            "description": "output nth percentile (for nonzero voxels)",
-            "optional": true,
-            "type": "number",
-            "minimum": 0,
-            "maximum": 100,
-            "id": "-P"
-        },
-        "output_nbins_histogram": {
-            "description": "nbins for output a histogram (for the thresholded/masked voxels only) with nbins",
-            "optional": true,
-            "type": "number",
-            "minimum": 1,
-            "maximum": 100,
-            "id": "-fsl_h"
-        },
-        "output_nbins_minMax_histogram": {
-            "description": "nbins, min, and max for output a histogram (for the thresholded/masked voxels only)\nwith nbins and histogram limits of min and max",
-            "optional": true,
-            "type": "string",
-            "enum": ["text"],
-            "id": "-H"
-        },
-        "function_options": {
-            "description": "Choose any combination of statistical output. Valid options include\n[-r, -R, -e, -E, -v, -m, -M, -s, -S, -w, -x , -X, -c , -C, -a, -n]\n-r           : output <robust min intensity> <robust max intensity>\n-R           : output <min intensity> <max intensity>\n-e           : output mean entropy ; mean(-i*ln(i))\n-E           : output mean entropy (of nonzero voxels)\n-v           : output <voxels> <volume>\n-V           : output <voxels> <volume> (for nonzero voxels)\n-m           : output mean\n-M           : output mean (for nonzero voxels)\n-s           : output standard deviation\n-S           : output standard deviation (for nonzero voxels)\n-w           : output smallest ROI <xmin> <xsize> <ymin> <ysize> <zmin> <zsize> <tmin> <tsize>\n containing nonzero voxels\n-x           : output co-ordinates of maximum voxel\n-X           : output co-ordinates of minimum voxel\n-c           : output centre-of-gravity (cog) in mm coordinates\n-C           : output centre-of-gravity (cog) in voxel coordinates\n-a           : use absolute values of all image intensities\n-n           : treat NaN or Inf as zero for subsequent stats",
-            "optional": true,
-            "type": "string",
-            "enum": [
-                "",
-                "-r",
-                "-R",
-                "-e",
-                "-E",
-                "-v",
-                "-m",
-                "-M",
-                "-s",
-                "-S",
-                "-w",
-                "-x ",
-                "-X",
-                "-c ",
-                "-C",
-                "-a",
-                "-n "
-            ]
-        }
+            "id": "-l",
+            "default":""
+          },
+          "u": {
+              "description": "set upper threshold",
+              "optional": true,
+              "type": "number",
+              "id": "-u",
+              "default":""
+          },
+          "p": {
+              "description": "output nth percentile (n between 0 and 100)",
+              "optional": true,
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100,
+              "id": "-p",
+              "default":""
+          },
+          "P": {
+              "description": "output nth percentile (for nonzero voxels)",
+              "optional": true,
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100,
+              "id": "-P",
+              "default":""
+          },
+          "fsl_h": {
+              "description": "nbins for output a histogram (for the thresholded/masked voxels only) with nbins",
+              "optional": true,
+              "type": "number",
+              "minimum": 1,
+              "maximum": 100,
+              "id": "-fsl_h",
+              "default":""
+          },
+          "H": {
+              "description": "nbins, min, and max for output a histogram (for the thresholded/masked voxels only)\nwith nbins and histogram limits of min and max",
+              "optional": true,
+              "type": "string",
+              "enum": ["text"],
+              "id": "-H",
+              "default":""
+          },
+          "r":{
+              "description" : "output <robust min intensity> <robust max intensity>",
+              "id": "r",
+              "optional": true,
+              "type": "boolean"
+          },
+          "R":{
+              "id": "R",
+              "description": "output <min intensity> <max intensity>",
+              "optional": true,
+              "type": "boolean"
+          },
+          "e":{
+              "id": "e",
+              "description": "output mean entropy ; mean(-i*ln(i))",
+              "optional": true,
+              "type": "boolean"
+          },
+          "E":{
+              "id":"-E",
+              "description": "output mean entropy (of nonzero voxels)",
+              "optional": true,
+              "type": "boolean"
+          },
+          "v":{
+              "id": "v",
+              "description": "output <voxels> <volume>",
+              "optional": true,
+              "type": "boolean"
+          },
+          "V":{
+              "id":"-V",
+              "description": "output <voxels> <volume> (for nonzero voxels)",
+              "optional": true,
+              "type": "boolean"
+          },
+          "w":{
+              "id":"-w",
+              "description": "output smallest ROI <xmin> <xsize> <ymin> <ysize> <zmin> <zsize> <tmin> <tsize>\n containing nonzero voxels",
+              "optional": true,
+              "type": "boolean"
+          },
+          "x":{
+              "id":"-x",
+              "description": "output co-ordinates of maximum voxel",
+              "optional": true,
+              "type": "boolean"
+          },
+          "X":{
+              "id":"-X",
+              "description": "output co-ordinates of minimum voxel",
+              "optional": true,
+              "type": "boolean"
+          },
+          "c":{
+              "id":"-c",
+              "description": "output centre-of-gravity (cog) in mm coordinates",
+              "optional": true,
+              "type": "boolean"
+          },
+          "C":{
+              "id":"-C",
+              "description": "output centre-of-gravity (cog) in voxel coordinates",
+              "optional": true,
+              "type": "boolean"
+          },
+          "a":{
+              "id":"-a",
+              "description": "use absolute values of all image intensities",
+              "optional": true,
+              "type": "boolean"
+          },
+          "n":{
+              "id":"-n",
+              "description": "treat NaN or Inf as zero for subsequent stats",
+              "optional": true,
+              "type": "boolean"
+          }
     },
     "inputs": {
         "input_image": {
