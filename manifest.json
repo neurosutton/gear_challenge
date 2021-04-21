@@ -22,21 +22,18 @@
         "lower_threshold": {
             "description": "set lower threshold",
             "optional": true,
-            "default": "",
             "type": "number",
             "id": "-l"
         },
         "upper_threshold": {
             "description": "set upper threshold",
             "optional": true,
-            "default": "",
             "type": "number",
             "id": "-u"
         },
         "output_nth_percentile": {
             "description": "output nth percentile (n between 0 and 100)",
             "optional": true,
-            "default": "",
             "type": "number",
             "minimum": 0,
             "maximum": 100,
@@ -45,7 +42,6 @@
         "output_nth_percentile_nonzero": {
             "description": "output nth percentile (for nonzero voxels)",
             "optional": true,
-            "default": "",
             "type": "number",
             "minimum": 0,
             "maximum": 100,
@@ -54,7 +50,6 @@
         "output_nbins_histogram": {
             "description": "nbins for output a histogram (for the thresholded/masked voxels only) with nbins",
             "optional": true,
-            "default": "",
             "type": "number",
             "minimum": 1,
             "maximum": 100,
@@ -63,7 +58,6 @@
         "output_nbins_minMax_histogram": {
             "description": "nbins, min, and max for output a histogram (for the thresholded/masked voxels only)\nwith nbins and histogram limits of min and max",
             "optional": true,
-            "default": "",
             "type": "string",
             "enum": ["text"],
             "id": "-H"
@@ -71,7 +65,6 @@
         "function_options": {
             "description": "Choose any combination of statistical output. Valid options include\n[-r, -R, -e, -E, -v, -m, -M, -s, -S, -w, -x , -X, -c , -C, -a, -n]\n-r           : output <robust min intensity> <robust max intensity>\n-R           : output <min intensity> <max intensity>\n-e           : output mean entropy ; mean(-i*ln(i))\n-E           : output mean entropy (of nonzero voxels)\n-v           : output <voxels> <volume>\n-V           : output <voxels> <volume> (for nonzero voxels)\n-m           : output mean\n-M           : output mean (for nonzero voxels)\n-s           : output standard deviation\n-S           : output standard deviation (for nonzero voxels)\n-w           : output smallest ROI <xmin> <xsize> <ymin> <ysize> <zmin> <zsize> <tmin> <tsize>\n containing nonzero voxels\n-x           : output co-ordinates of maximum voxel\n-X           : output co-ordinates of minimum voxel\n-c           : output centre-of-gravity (cog) in mm coordinates\n-C           : output centre-of-gravity (cog) in voxel coordinates\n-a           : use absolute values of all image intensities\n-n           : treat NaN or Inf as zero for subsequent stats",
             "optional": true,
-            "default": "",
             "type": "string",
             "enum": [
                 "",
