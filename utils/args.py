@@ -9,19 +9,14 @@ def handle_multiple_imgs(context):
     (b) mask image, and (c) difference image. To accomodate multiple nii's,
     create a custom-user field to build the custom_dict with arg:nii pairs.
     """
-    config = context.config
     # Grab the primary image
-    context.custom_dict["input_image"] = config.inputs.input_image.path
-    #context.get_input("input_image")["location"][
-    #    "name"
-    #]
+    context.custom_dict["input_image"] = op.join(context.custom_dict['environ'],'input', context.get_input("input_image")["location"]["name"])
 
     # If secondary images are provided, grab the inputs
     if context.get_input("mask_image"):
-        context.custom_dict["mask_image"] = config.inputs.mask_image.path
-
+        context.custom_dict["mask_image"] = op.join(context.custom_dict['environ'],'input', context.get_input("mask_image")["location"]["name"])
     if context.get_input("difference_image"):
-        context.custom_dict["difference_image"] = config.inputs.difference_image.path
+        context.custom_dict["difference_image"] = op.join(context.custom_dict['environ'],'input', context.get_input("difference_image")["location"]["name"])
 
 
 def parse_params(context):
@@ -30,15 +25,15 @@ def parse_params(context):
     """
     config = context.config
     params = {}
-    for key in config.keys():
+    for k, v in config.items():
         # Use only those boolean values that are True
-        if isinstance(config[key], bool):
-            if config[key]:
-                params[key] = True
+        if isinstance(config[k], bool):
+            if config[k]:
+                params[k] = v
         else:
             # if the key-value is zero or an empty string, we skip and use the defaults
-            if config[key] != 0 and config[key] != "":
-                params[key] = config[key]
+            if config[k] != 0 and config[k] != "":
+                params[k] = config[k]
     context.custom_dict["params"] = params
 
 def validate(context):
@@ -53,7 +48,6 @@ def validate(context):
     if not keys:
         print(dir(context))
         raise Exception ('fslstats requires at least one option is chosen.')
-
         os.sys.exit()
 
 
@@ -125,9 +119,7 @@ def _build_command_list(context, command=['fslstats']):
         command.extend(["-d", context.custom_dict["difference_image"]])
     if context.custom_dict["params"].keys():
         for k in context.custom_dict["params"].keys():
-            print(k)
             command.extend(_set_stats(context, k))
-            print(command)
     return command
 
 def _report_out(context, command, result):
