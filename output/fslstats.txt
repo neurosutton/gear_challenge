@@ -1,2 +1,0 @@
-['fslstats', 'sub-001_anat_sub-001_T1w.nii.gz', '-M']
-135.676958 
