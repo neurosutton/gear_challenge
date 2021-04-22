@@ -11,6 +11,7 @@
     "source": "",
     "environment": {"FLYWHEEL": "/flywheel/v0"},
     "custom": {
+        "docker-image": "neurosutton/fsl-stats:0.2.0",
         "gear-builder": {
             "category": "analysis",
             "image": "neurosutton/fsl-stats:0.2.0"
@@ -83,7 +84,7 @@
               "type": "number",
               "minimum": 1,
               "maximum": 100,
-              "id": "-fsl_h"
+              "id": "-h"
           },
           "Windowed nbins for histogram": {
               "description": "nbins, min, and max for output a histogram (for the thresholded/masked voxels only)\nwith nbins and histogram limits of min and max",
