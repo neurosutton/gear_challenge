@@ -1,6 +1,14 @@
 __pycache__
 *.pyc
-
-.DS_store
 *.dvc
+
+# Mac
+.DS_store
+
+# Editor
+.vscode
+.idea/
+
+# Other
 *.pvt
+*.txt
