@@ -71,14 +71,32 @@ def _set_stats(context, key):
         list of values (option and value) to be appended to the fslstats command
     """
 
-    custom_tag_dict = {"upper_threshold": "-u",
-        "lower_threshold": "-l",
-        "output_nth_percentile": "-p",
-        "output_nth_percentile_nonzero": "-P",
-        "output_nbins_histogram": "-h",
-        "output_nbins_minMax_histogram": "-H",
+    custom_tag_dict = {
+        "Mean intensity": "-m",
+        "Mean intensity (nonzero)": '-M',
+        "Stdev": "-s",
+        "Stdev (nonzero)":  "-S",
+        "Upper threshold": "-u",
+        "Lower threshold": "-l",
+        "Percentile": "-p",
+        "Percentile (nonzero)": "-P",
+        "nbins for histogram": "-h",
+        "Windowed nbins for histogram": "-H",
+        "Robust min/max": "-r",
+        "Min/max" : "-R",
+        "Entropy": "-e",
+        "Entropy (nonzero)": "-E",
+        "Volume": '-v',
+        "Volume (nonzero)": '-V',
+        "ROI stats": "-w",
+        "Max voxel coords": "-x",
+        "Min voxel coords": "-X",
+        "Center of gravity (mm)": "-c",
+        "Center of gravity (voxels)": "-C",
+        "Absolute values?": "-a",
+        "NaN/Inf as zero?": "-n"
     }
-    return [custom_tag_dict[key], str(context.custom_dict["params"][key])]
+    return [custom_tag_dict[key]]
 
 
 def _build_command_list(context, command=['fslstats']):
@@ -107,11 +125,10 @@ def _build_command_list(context, command=['fslstats']):
     if "difference_image" in context.custom_dict:
         command.extend(["-d", context.custom_dict["difference_image"]])
     if context.custom_dict["params"].keys():
-        for k,v in context.custom_dict["params"].items():
-            if v==True:
-                command.extend(['-'+k])
-            else:
-                command.extend(_set_stats(context, k))
+        for k in context.custom_dict["params"].keys():
+            print(k)
+            command.extend(_set_stats(context, k))
+            print(command)
     return command
 
 def _report_out(context, command, result):

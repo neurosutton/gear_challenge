@@ -68,7 +68,8 @@
               "type": "number",
               "minimum": 0,
               "maximum": 100,
-              "id": "-p"
+              "id": "-p",
+              "default": 0
           },
           "Percentile (nonzero)": {
               "description": "output nth percentile (for nonzero voxels)",
@@ -76,7 +77,8 @@
               "type": "number",
               "minimum": 0,
               "maximum": 100,
-              "id": "-P"
+              "id": "-P",
+              "default": 0
           },
           "nbins for histogram": {
               "description": "nbins for output a histogram (for the thresholded/masked voxels only) with nbins",
@@ -90,8 +92,9 @@
               "description": "nbins, min, and max for output a histogram (for the thresholded/masked voxels only)\nwith nbins and histogram limits of min and max",
               "optional": true,
               "type": "string",
-              "enum": ["text"],
-              "id": "-H"
+              "enum": [""],
+              "id": "-H",
+              "default": ["10 0 100"]
           },
           "Robust min/max": {
               "description" : "output <robust min intensity> <robust max intensity>",
