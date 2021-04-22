@@ -68,8 +68,7 @@
               "type": "number",
               "minimum": 0,
               "maximum": 100,
-              "id": "-p",
-              "default": 0
+              "id": "-p"
           },
           "Percentile (nonzero)": {
               "description": "output nth percentile (for nonzero voxels)",
@@ -77,8 +76,7 @@
               "type": "number",
               "minimum": 0,
               "maximum": 100,
-              "id": "-P",
-              "default": 0
+              "id": "-P"
           },
           "nbins for histogram": {
               "description": "nbins for output a histogram (for the thresholded/masked voxels only) with nbins",
