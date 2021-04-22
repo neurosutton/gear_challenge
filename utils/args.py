@@ -9,20 +9,19 @@ def handle_multiple_imgs(context):
     (b) mask image, and (c) difference image. To accomodate multiple nii's,
     create a custom-user field to build the custom_dict with arg:nii pairs.
     """
+    config = context.config
     # Grab the primary image
-    context.custom_dict["input_image"] = context.get_input("input_image")["location"][
-        "name"
-    ]
+    context.custom_dict["input_image"] = config.inputs.input_image.path
+    #context.get_input("input_image")["location"][
+    #    "name"
+    #]
 
     # If secondary images are provided, grab the inputs
     if context.get_input("mask_image"):
-        context.custom_dict["mask_image"] = context.get_input("mask_image")["location"][
-            "name"
-        ]
+        context.custom_dict["mask_image"] = config.inputs.mask_image.path
+
     if context.get_input("difference_image"):
-        context.custom_dict["difference_image"] = context.get_input("difference_image")[
-            "location"
-        ]["name"]
+        context.custom_dict["difference_image"] = config.inputs.difference_image.path
 
 
 def parse_params(context):
