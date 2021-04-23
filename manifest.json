@@ -91,8 +91,7 @@
               "optional": true,
               "type": "string",
               "id": "-H",
-              "enum": [""],
-              "default":""
+              "enum": [""]
           },
           "Robust min/max": {
               "description" : "output <robust min intensity> <robust max intensity>",
