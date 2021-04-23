@@ -91,6 +91,7 @@
               "optional": true,
               "type": "string",
               "id": "-H",
+              "enum": [""],
               "default":""
           },
           "Robust min/max": {
