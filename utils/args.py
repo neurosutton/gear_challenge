@@ -37,11 +37,11 @@ def validate(context):
     Raises: Throw errors for setting violations.
     """
 
-    log = context.log
     params = context.custom_dict['params']
     keys = params.keys()
 
     if not keys:
+        context.log.info('No statistics were requested.')
         raise Exception ('fslstats requires at least one option is chosen.')
         os.sys.exit()
 
