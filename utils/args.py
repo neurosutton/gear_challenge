@@ -101,11 +101,11 @@ def _build_command_list(context, command=['fslstats']):
     """
     # Add an option of splitting a timeseries
     # Per fslstats usage, this tag comes before other image optionsin the command
-    if "t" in context.custom_dict["params"].keys():
+    if "Split by timepoint" in context.custom_dict["params"].keys():
         command.append("-t")
         # Eliminate reference to timepoint argument, since it is built into the 
         # command earlier than the other optional tags
-        del context.config['Split by timepoint'] 
+        del context.custom_dict["params"]['Split by timepoint']
 
     # Add main image
     command.append(context.custom_dict["input_image"])
