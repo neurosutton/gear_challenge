@@ -29,14 +29,12 @@
           "Mean intensity": {
               "id":"-m",
               "description": "output mean",
-              "optional": true,
               "type": "boolean",
               "default": true
           },
           "Mean intensity (nonzero)": {
                 "id":"-M",
                 "description": "output mean (for nonzero voxels)",
-                "optional": true,
                 "type": "boolean",
                 "default": true
           },
