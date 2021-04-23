@@ -9,20 +9,16 @@ def handle_multiple_imgs(context):
     (b) mask image, and (c) difference image. To accomodate multiple nii's,
     create a custom-user field to build the custom_dict with arg:nii pairs.
     """
-    # Grab the primary image
-    context.custom_dict["input_image"] = op.join(context.custom_dict['environ'],'input', context.get_input("input_image")["location"]["name"])
-
-    # If secondary images are provided, grab the inputs
-    if context.get_input("mask_image"):
-        context.custom_dict["mask_image"] = op.join(context.custom_dict['environ'],'input', context.get_input("mask_image")["location"]["name"])
-    if context.get_input("difference_image"):
-        context.custom_dict["difference_image"] = op.join(context.custom_dict['environ'],'input', context.get_input("difference_image")["location"]["name"])
-
+    inp_dir = op.join(context.custom_dict["environ"]['FLYWHEEL'],'input')
+    for file_type in ['input_image','mask_image','difference_image']:
+        if context.get_input(file_type):
+            context.custom_dict[file_type] = op.join(inp_dir, file_type ,context.get_input(file_type)["location"]["name"])
 
 def parse_params(context):
     """
     Parse the statistical arguments given to fslstats so the command can be built.
     """
+    
     config = context.config
     params = {}
     for k, v in config.items():
@@ -46,7 +42,6 @@ def validate(context):
     keys = params.keys()
 
     if not keys:
-        print(dir(context))
         raise Exception ('fslstats requires at least one option is chosen.')
         os.sys.exit()
 
@@ -108,6 +103,9 @@ def _build_command_list(context, command=['fslstats']):
     # Per fslstats usage, this tag comes before other image optionsin the command
     if "t" in context.custom_dict["params"].keys():
         command.append("-t")
+        # Eliminate reference to timepoint argument, since it is built into the 
+        # command earlier than the other optional tags
+        del context.config['Split by timepoint'] 
 
     # Add main image
     command.append(context.custom_dict["input_image"])
