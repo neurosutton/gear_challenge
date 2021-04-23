@@ -13,4 +13,5 @@ __pycache__
 *.pvt
 *.txt
 /output
+/input
 *gz
